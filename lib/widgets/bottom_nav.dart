@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/home/home_screen.dart';
-import '../screens/weather/weather_screen.dart';
-import '../screens/map/map_screen.dart';
+import '../screens/tasks/tasks_screen.dart';
 
 /// Keeps the five main sections available through bottom navigation.
 class StudentLinkShell extends StatefulWidget {
@@ -15,34 +14,44 @@ class StudentLinkShell extends StatefulWidget {
 class _StudentLinkShellState extends State<StudentLinkShell> {
   int _selectedIndex = 0;
 
- static final _pages = <Widget>[
-  const HomeScreen(),
+  static const List<Widget> _pages = [
+    HomeScreen(),
 
-  const _FeaturePlaceholder(
-    icon: Icons.checklist_rounded,
-    title: 'Tasks',
-    message: 'Your task list will appear here.',
-  ),
+    // Real SQLite task list.
+    TasksScreen(),
 
-  const _FeaturePlaceholder(
-    icon: Icons.add_task_rounded,
-    title: 'Add Task',
-    message: 'The task form will appear here.',
-  ),
+    // The Tasks screen also contains the Add Task button and form.
+    TasksScreen(),
 
-  MapScreen(),
+    _FeaturePlaceholder(
+      icon: Icons.map_outlined,
+      title: 'Study Locations',
+      message: 'Nearby study locations will appear here.',
+    ),
 
-  WeatherScreen(),
-];
+    _FeaturePlaceholder(
+      icon: Icons.cloud_outlined,
+      title: 'Weather',
+      message: 'The campus forecast will appear here.',
+    ),
+  ];
+
+  void _selectPage(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: _pages),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
-        // Rebuilds the shell with the page selected by the user.
-        onDestinationSelected: (index) =>
-            setState(() => _selectedIndex = index),
+        onDestinationSelected: _selectPage,
         backgroundColor: Colors.white,
         indicatorColor: const Color(0xFFDDE7FF),
         height: 72,
@@ -108,14 +117,16 @@ class _FeaturePlaceholder extends StatelessWidget {
               Text(
                 title,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+                      fontWeight: FontWeight.w800,
+                    ),
               ),
               const SizedBox(height: 8),
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Color(0xFF7B879E)),
+                style: const TextStyle(
+                  color: Color(0xFF7B879E),
+                ),
               ),
             ],
           ),
