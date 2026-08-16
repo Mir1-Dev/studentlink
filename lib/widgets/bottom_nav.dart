@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../screens/home/home_screen.dart';
+import '../screens/weather/weather_screen.dart';
+import '../screens/map/map_screen.dart';
 
 /// Keeps the five main sections available through bottom navigation.
 class StudentLinkShell extends StatefulWidget {
@@ -13,30 +15,25 @@ class StudentLinkShell extends StatefulWidget {
 class _StudentLinkShellState extends State<StudentLinkShell> {
   int _selectedIndex = 0;
 
-  static const _pages = <Widget>[
-    HomeScreen(),
-    _FeaturePlaceholder(
-      icon: Icons.checklist_rounded,
-      title: 'Tasks',
-      message: 'Your task list will appear here.',
-    ),
-    _FeaturePlaceholder(
-      icon: Icons.add_task_rounded,
-      title: 'Add Task',
-      message: 'The task form will appear here.',
-    ),
-    _FeaturePlaceholder(
-      icon: Icons.map_outlined,
-      title: 'Study Locations',
-      message: 'Nearby study locations will appear here.',
-    ),
-    _FeaturePlaceholder(
-      icon: Icons.cloud_outlined,
-      title: 'Weather',
-      message: 'The campus forecast will appear here.',
-    ),
-  ];
+ static final _pages = <Widget>[
+  const HomeScreen(),
 
+  const _FeaturePlaceholder(
+    icon: Icons.checklist_rounded,
+    title: 'Tasks',
+    message: 'Your task list will appear here.',
+  ),
+
+  const _FeaturePlaceholder(
+    icon: Icons.add_task_rounded,
+    title: 'Add Task',
+    message: 'The task form will appear here.',
+  ),
+
+  MapScreen(),
+
+  WeatherScreen(),
+];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
