@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../services/weather_service.dart';
+import '../../widgets/app_logo.dart';
 
 class WeatherScreen extends StatelessWidget {
   WeatherScreen({super.key});
@@ -10,7 +12,14 @@ class WeatherScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weather'),
+        title: const Text(
+          'Weather',
+          style: TextStyle(fontWeight: FontWeight.w800),
+        ),
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 8),
+          child: AppLogo(size: 24),
+        ),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: weatherService.getWeather(
